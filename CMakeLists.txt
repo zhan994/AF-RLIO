@@ -53,7 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   pcl_ros
   tf
-  livox_ros_driver
+  # livox_ros_driver
   message_generation
   eigen_conversions
 )
@@ -63,7 +63,9 @@ find_package(PCL 1.8 REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS timer)
 find_package(GTSAM REQUIRED QUIET)
-find_package(GeographicLib REQUIRED)
+# find_package(GeographicLib REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GEOGRAPHIC REQUIRED geographiclib)
 
 message(Eigen: ${EIGEN3_INCLUDE_DIR})
 
@@ -73,6 +75,7 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
   ${PYTHON_INCLUDE_DIRS}
   ${GTSAM_INCLUDE_DIR}
+  ${GEOGRAPHIC_INCLUDE_DIRS}
   include)
 
 add_message_files(
@@ -100,7 +103,7 @@ target_link_libraries(AF_RLIO ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBR
 target_include_directories(AF_RLIO PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 add_executable(GPS_Processing src/GPS_Processing.cpp)
-target_link_libraries(GPS_Processing ${catkin_LIBRARIES} ${OpenCV_LIBS} ${GeographicLib_LIBRARIES} ) 
+target_link_libraries(GPS_Processing ${catkin_LIBRARIES} ${OpenCV_LIBS} ${GEOGRAPHIC_LIBRARIES} ) 
 
 add_executable(Radar_Preprocess src/Radar_Preprocess.cpp src/radar_ego_velocity_estimator.cpp)
 add_dependencies(Radar_Preprocess ${catkin_EXPORTED_TARGETS} afrlio_generate_messages_cpp)

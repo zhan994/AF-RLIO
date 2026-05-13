@@ -24,6 +24,7 @@ Chenglong Qian, Yang Xu, Xiufang Shi, Jiming Chen, Liang Li*
 - PCL
 - GTSAM
 - OpenCV4
+- GeographicLib: `sudo apt install libgeographic-dev geographiclib-tools`
 
 ## Installation
 
